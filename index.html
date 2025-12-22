@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year, My Love</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* --- Premium Color Palette --- */
+        :root {
+            --gold: #D4AF37;
+            --gold-shine: #FFD700;
+            --dark-bg: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        .handwriting {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* --- Gold Gradient Text --- */
+        .text-gold-gradient {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+        }
+        
+        .gold-border {
+            border-image: linear-gradient(to right, transparent, #D4AF37, transparent) 1;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* --- Intro Animation --- */
+        #intro-screen { transition: opacity 1.5s ease-in-out; }
+        .fade-out { opacity: 0; pointer-events: none; }
+
+        /* --- Glassmorphism Header --- */
+        .glass-header {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* --- Premium Footer Pattern --- */
+        .footer-bg {
+            background-color: #080808;
+            background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, transparent 70%);
+        }
+
+        /* --- Animations --- */
+        .reveal-item { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        .reveal-item.visible { opacity: 1; transform: translateY(0); }
+        
+        .floating { animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Heart Beat */
+        .heart-beat { animation: beat 1.5s infinite; }
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#D4AF37] selection:text-black">
+
+    <!-- Canvas for Fireworks -->
+    <canvas id="fireworksCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- INTRO SCREEN -->
+    <div id="intro-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1516450360452-631d471536d9?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
+        <div class="z-10 text-center px-4">
+            <div class="w-px h-24 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent mx-auto mb-8"></div>
+            <p class="cinzel text-[#D4AF37] tracking-[0.3em] text-sm mb-6 uppercase">Private Invitation</p>
+            <button onclick="startExperience()" class="group relative px-10 py-4 bg-transparent border border-[#D4AF37] text-white overflow-hidden transition-all duration-500 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                <span class="absolute top-0 left-0 w-full h-full bg-[#D4AF37] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
+                <span class="relative z-10 flex items-center gap-3 font-serif italic text-xl group-hover:text-black transition-colors">
+                    Open Letter <i data-lucide="mail-open" class="w-4 h-4"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <main id="main-content" class="relative z-10 hidden opacity-0 transition-opacity duration-1000">
+
+        <!-- PREMIUM HEADER -->
+        <nav class="fixed top-0 w-full z-40 glass-header px-6 py-4 flex justify-between items-center">
+            <!-- Left: Logo/Initials -->
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 border border-[#D4AF37] rounded-full flex items-center justify-center">
+                    <i data-lucide="infinity" class="w-4 h-4 text-[#D4AF37]"></i>
+                </div>
+                <span class="cinzel text-white tracking-widest text-sm md:text-base">FOREVER <span class="text-[#D4AF37]">US</span></span>
+            </div>
+
+            <!-- Right: Date Badge -->
+            <div class="flex items-center gap-4">
+                <span class="hidden md:inline text-xs tracking-[0.2em] text-gray-400">EST. 2025</span>
+                <div class="bg-[#D4AF37] text-black px-3 py-1 text-xs font-bold tracking-widest rounded-sm">
+                    2026
+                </div>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <section class="min-h-screen flex flex-col items-center justify-center text-center px-4 relative pt-20">
+            <div class="reveal-item space-y-4 z-10 max-w-4xl mx-auto">
+                <div class="flex justify-center mb-6">
+                    <i data-lucide="crown" class="w-8 h-8 text-[#D4AF37] floating"></i>
+                </div>
+                
+                <p class="handwriting text-4xl md:text-6xl text-gray-300">Meri Pyaari,</p>
+                
+                <h1 class="text-5xl md:text-8xl font-bold leading-tight my-6">
+                    <span class="block text-white">Happy</span>
+                    <span class="block text-gold-gradient font-serif italic">New Year</span>
+                </h1>
+                
+                <div class="w-24 h-[1px] bg-[#D4AF37] mx-auto my-8"></div>
+
+                <p class="text-gray-300 text-lg md:text-xl font-light tracking-wide">
+                    Ek aur saal guzar gaya,<br>par mera pyaar tumhare liye bas badhta gaya.
+                </p>
+            </div>
+            
+            <div class="absolute bottom-10 animate-bounce text-[#D4AF37]">
+                <i data-lucide="arrow-down" class="w-6 h-6 opacity-70"></i>
+            </div>
+        </section>
+
+        <!-- SHAYARI CARDS -->
+        <section class="py-24 px-4 relative">
+            <div class="max-w-3xl mx-auto space-y-16">
+                
+                <!-- Card 1 -->
+                <div class="reveal-item relative p-8 md:p-14 border border-[#ffffff10] bg-[#ffffff05] backdrop-blur-sm text-center">
+                    <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#050505] px-4 text-[#D4AF37] cinzel text-xs tracking-[0.2em]">MESSAGE</span>
+                    
+                    <p class="text-xl md:text-3xl text-gray-200 font-serif leading-relaxed italic">
+                        "Is naye saal mein jo tu mere paas hai,<br>
+                        Bas yahi baat sabse khaas hai.<br>
+                        Koi gam na ho, koi aankh kabhi nam na ho,<br>
+                        Bas tera aur mera sath janam janam ho."
+                    </p>
+                    <div class="mt-8 flex justify-center">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-yellow-500 animate-pulse"></i>
+                    </div>
+                </div>
+
+                <!-- Card 2 (Darker, Emotional) -->
+                <div class="reveal-item text-center px-4">
+                    <h2 class="text-3xl font-serif text-[#D4AF37] mb-6">Dil Ki Baat</h2>
+                    <p class="text-lg text-gray-400 leading-loose max-w-2xl mx-auto">
+                        Log kehte hain saal badalta hai toh sab kuch badal jaata hai. Par main chahta hoon ki hamare beech kuch bhi na badle. Wahi purana pyaar, wahi purani baatein. <br>
+                        <span class="text-white border-b border-[#D4AF37]">2025 sirf ek number hai, asli celebration toh tum ho.</span>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PROMISES LIST -->
+        <section class="py-20 px-4">
+            <div class="max-w-md mx-auto">
+                <div class="reveal-item text-center mb-10">
+                    <h3 class="cinzel text-2xl text-white tracking-widest border-b border-gray-800 pb-4 inline-block">MY PROMISES</h3>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="reveal-item flex items-center gap-4 text-gray-300 p-4 border border-white/5 hover:border-[#D4AF37]/50 transition-colors">
+                        <i data-lucide="check-circle-2" class="w-6 h-6 text-[#D4AF37]"></i>
+                        <span class="text-lg">Har din tumse baat krna.</span>
+                    </div>
+                    <div class="reveal-item flex items-center gap-4 text-gray-300 p-4 border border-white/5 hover:border-[#D4AF37]/50 transition-colors">
+                        <i data-lucide="check-circle-2" class="w-6 h-6 text-[#D4AF37]"></i>
+                        <span class="text-lg">Tumhari har bachkani baat sunna.</span>
+                    </div>
+                    <div class="reveal-item flex items-center gap-4 text-gray-300 p-4 border border-white/5 hover:border-[#D4AF37]/50 transition-colors">
+                        <i data-lucide="check-circle-2" class="w-6 h-6 text-[#D4AF37]"></i>
+                        <span class="text-lg">Zindagi bhar tumhara saath dena.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PREMIUM FOOTER -->
+        <footer class="footer-bg relative pt-20 pb-10 px-6 mt-12 border-t border-[#ffffff10]">
+            <!-- Decorative Top Border -->
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#050505] p-3 border border-[#ffffff10] rounded-full">
+                <i data-lucide="heart-handshake" class="w-6 h-6 text-[#D4AF37]"></i>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center reveal-item">
+                <h2 class="handwriting text-5xl md:text-6xl text-white mb-4">Yours Forever</h2>
+                <p class="cinzel text-[#D4AF37] text-sm tracking-[0.3em] uppercase mb-10">Official Love Partner</p>
+
+                <!-- Action Buttons (Visual only, creates interaction) -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button class="px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-widest text-gray-400 hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all">
+                        Call Me
+                    </button>
+                    <button class="px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-widest text-gray-400 hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all">
+                        Hug Me
+                    </button>
+                    <button class="px-6 py-2 border border-gray-700 rounded-full text-xs uppercase tracking-widest text-gray-400 hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all">
+                        Kiss Me
+                    </button>
+                </div>
+
+                <!-- Signature Area -->
+                <div class="border-t border-b border-[#ffffff05] py-8 my-8">
+                    <p class="text-2xl font-serif text-white italic">"Tu hai toh main hoon."</p>
+                </div>
+
+                <!-- Copyright / Bottom -->
+                <div class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 tracking-wider">
+                    <p>&copy; 2025 LOVE INC. ALL RIGHTS RESERVED.</p>
+                    <p class="mt-2 md:mt-0">DESIGNED FOR <span class="text-gray-400">RAHUL</span></p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // Reveal Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
+
+        // Start Experience
+        function startExperience() {
+            const intro = document.getElementById('intro-screen');
+            const main = document.getElementById('main-content');
+            intro.classList.add('fade-out');
+            setTimeout(() => {
+                intro.style.display = 'none';
+                main.classList.remove('hidden');
+                setTimeout(() => main.classList.remove('opacity-0'), 50);
+                startFireworks();
+            }, 1000);
+        }
+
+        // Fireworks Logic (Simplified for performance)
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        let fireworks = [], particles = [];
+
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function startFireworks() {
+            function loop() {
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.fillStyle = 'rgba(5, 5, 5, 0.2)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.globalCompositeOperation = 'lighter';
+
+                if (Math.random() < 0.03) {
+                    fireworks.push({x: Math.random()*canvas.width, y: canvas.height, sx: Math.random()*2-1, sy: -(Math.random()*3+4), hue: Math.random()*360});
+                }
+
+                fireworks = fireworks.filter(f => {
+                    f.x += f.sx; f.y += f.sy; f.sy += 0.05;
+                    if(f.sy >= -1) {
+                        for(let i=0;i<30;i++) particles.push({x:f.x, y:f.y, sx:Math.random()*6-3, sy:Math.random()*6-3, life:100, hue:f.hue});
+                        return false;
+                    }
+                    return true;
+                });
+                fireworks.forEach(f => { ctx.fillStyle=`hsl(${f.hue},100%,50%)`; ctx.beginPath(); ctx.arc(f.x,f.y,2,0,Math.PI*2); ctx.fill(); });
+
+                particles = particles.filter(p => {
+                    p.x+=p.sx; p.y+=p.sy; p.sy+=0.05; p.life--;
+                    if(p.life>0) { ctx.fillStyle=`hsla(${p.hue},100%,50%,${p.life/100})`; ctx.beginPath(); ctx.arc(p.x,p.y,1.5,0,Math.PI*2); ctx.fill(); }
+                    return p.life>0;
+                });
+                requestAnimationFrame(loop);
+            }
+            loop();
+        }
+    </script>
+</body>
+</html>
